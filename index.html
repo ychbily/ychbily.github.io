@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Youssef | Software Engineering Student</title>
+<meta name="description" content="Youssef, Software Engineering student at 1337 School (42 Network). Full-stack, backend and AI/ML.">
+<meta property="og:title" content="Youssef | Software Engineering Student">
+<meta property="og:description" content="Software Engineering student at 1337 School (42 Network). Full-stack, backend and AI/ML.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%92%BB</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0d12;
+    --surface: #12161d;
+    --surface-2: #171d26;
+    --text: #dde3ea;
+    --muted: #7a8794;
+    --border: #232a35;
+    --amber: #ffb454;
+    --cyan: #7dd3fc;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    padding: 24px 16px;
+  }
+
+  .card{
+    width: 100%;
+    max-width: 420px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+
+  .termbar{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .termbar .dot{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .termbar .path{
+    margin-left: 4px;
+  }
+
+  .status{
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status .pulse{
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--amber);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse{
+    0%   { box-shadow: 0 0 0 0 rgba(255,180,84,0.45); }
+    70%  { box-shadow: 0 0 0 6px rgba(255,180,84,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,180,84,0); }
+  }
+
+  .boot{
+    padding: 22px 20px 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+
+  .boot .prefix{ color: var(--muted); }
+  .boot .cmd{ color: var(--amber); font-weight: 700; }
+
+  .cursor{
+    display: inline-block;
+    margin-left: 2px;
+    color: var(--amber);
+    animation: blink 1s steps(1) infinite;
+  }
+
+  @keyframes blink{
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  .content{
+    padding: 18px 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .content.reveal{
+    animation: fadeUp .45s ease both;
+  }
+
+  @keyframes fadeUp{
+    from{ opacity: 0; transform: translateY(6px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  .identity{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .avatar{
+    position: relative;
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    background: var(--surface-2);
+  }
+
+  .avatar img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .avatar-fallback{
+    display: none;
+    position: absolute;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--amber);
+  }
+
+  .names h1{
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .names .role{
+    margin: 3px 0 0;
+    font-size: 12.5px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .summary{
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+    opacity: 0.92;
+  }
+
+  .fields{
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 14px;
+    padding: 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .fields div{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .fields dt{
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .fields dt::before{
+    content: "› ";
+    color: var(--cyan);
+  }
+
+  .fields dd{
+    margin: 0;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .links{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .link-btn{
+    flex: 1 1 0;
+    min-width: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 11px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: border-color .15s ease, color .15s ease, transform .15s ease;
+  }
+
+  .link-btn svg{
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: var(--muted);
+    transition: color .15s ease;
+  }
+
+  .link-btn:hover, .link-btn:focus-visible{
+    border-color: var(--amber);
+    color: var(--amber);
+    transform: translateY(-1px);
+  }
+
+  .link-btn:hover svg, .link-btn:focus-visible svg{
+    color: var(--amber);
+  }
+
+  .link-btn:focus-visible{
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+  }
+
+  .footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 20px 18px;
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+    transition: color .15s ease;
+  }
+
+  .footer svg{
+    width: 14px;
+    height: 14px;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: color .15s ease;
+  }
+
+  .footer:hover, .footer:focus-visible{
+    color: var(--amber);
+  }
+
+  .footer:hover svg, .footer:focus-visible svg{
+    color: var(--amber);
+  }
+
+  .footer:focus-visible{
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
+  }
+
+  .toast{
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translate(-50%, 12px);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 9px 14px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+  }
+
+  .toast.show{
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .cursor, .status .pulse{ animation: none; }
+    .content.reveal{ animation: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="termbar">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="path">ychbily~$</span>
+      <span class="status"><span class="pulse"></span>open to PFE internships</span>
+    </div>
+
+    <div class="boot" id="boot">
+      <span class="prefix">$ </span><span class="cmd" id="typed"></span><span class="cursor" id="cursor">▌</span>
+    </div>
+
+    <div class="content" id="content" hidden>
+      <div class="identity">
+        <div class="avatar">
+          <img id="avatarImg" src="me.jpeg" alt="Youssef Chbily"
+               onerror="this.style.display='none'; document.getElementById('avatarFallback').style.display='flex';">
+          <div class="avatar-fallback" id="avatarFallback">Y</div>
+        </div>
+        <div class="names">
+          <h1>Youssef Chbily</h1>
+          <p class="role">Software Engineering Student, 1337 School</p>
+        </div>
+      </div>
+
+      <p class="summary">
+        Software Engineering student at 1337 School (42 Network), UM6P.
+        Comfortable across the stack, from React and Python (Django, FastAPI) to C/C++,
+        with a growing focus on AI/ML: RAG pipelines and LLM integration.
+        Based in Meknès, Morocco.
+      </p>
+
+      <dl class="fields">
+        <div><dt>school</dt><dd>1337 School, UM6P</dd></div>
+        <div><dt>focus</dt><dd>Full-stack · Backend · AI/ML</dd></div>
+        <div><dt>based</dt><dd>Meknès, Morocco</dd></div>
+        <div><dt>status</dt><dd>Open to PFE internships</dd></div>
+      </dl>
+
+      <div class="links">
+        <a class="link-btn" href="https://github.com/ychbily" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+        <a class="link-btn" href="https://www.linkedin.com/in/ychbily/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a class="link-btn" id="mailBtn" href="mailto:y.chbily@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+      </div>
+    </div>
+    <div class="link-btn"
+     style="cursor: default; user-select: text;"
+     aria-label="Phone number">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.89.33 1.76.63 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.2a2 2 0 0 1 2.11-.45c.84.3 1.71.51 2.6.63A2 2 0 0 1 22 16.92z"/>
+  </svg>
+  +212 6 77 51 67 69
+</div>
+    <a class="footer" href="resume.pdf" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download resume (PDF)
+    </a>
+  </div>
+
+  <div class="toast" id="toast">email copied</div>
+
+<script>
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var typedEl = document.getElementById('typed');
+    var contentEl = document.getElementById('content');
+    var cmd = 'whoami';
+
+    function reveal(){
+      contentEl.hidden = false;
+      contentEl.classList.add('reveal');
+    }
+
+    if(reduce){
+      typedEl.textContent = cmd;
+      reveal();
+    } else {
+      var i = 0;
+      (function type(){
+        if(i <= cmd.length){
+          typedEl.textContent = cmd.slice(0, i);
+          i++;
+          setTimeout(type, 75);
+        } else {
+          setTimeout(reveal, 300);
+        }
+      })();
+    }
+
+    var mailBtn = document.getElementById('mailBtn');
+    var toast = document.getElementById('toast');
+    mailBtn.addEventListener('click', function(){
+      var addr = mailBtn.getAttribute('href').replace('mailto:', '');
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(addr).catch(function(){});
+      }
+      toast.classList.add('show');
+      setTimeout(function(){ toast.classList.remove('show'); }, 1600);
+    });
+  })();
+</script>
+
+</body>
+</html>
